@@ -30,7 +30,7 @@ const HomePage = () => {
           countRoute: '/all-latest-blogs-count',
         })
         setLatestBlogs(formatedData)
-        console.log(formatedData);
+       // console.log(formatedData);
       })
       .catch((error) => console.error(error));
   }
@@ -86,7 +86,7 @@ const HomePage = () => {
 
   }, [pageState]);
 
-  console.log(latestBlogs);
+  //console.log(latestBlogs);
   return (
     <AnimationWrapper>
       <section className={`h-cover flex justify-center gap-10 ${isDark ? 'dark bg-gray-900' : 'bg-gray-50'}`}>

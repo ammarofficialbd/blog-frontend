@@ -25,6 +25,11 @@ export default {
 
         extend: {
             colors:{
+                dark: '#1a202c',
+                light: '#ffffff',
+                'dark-grey': '#4a5568',
+                'light-grey': '#a0aec0',
+                'light-blue': '#63b3ed',
                 gray: require('tailwindcss/colors').gray,
             },
             fontFamily: {

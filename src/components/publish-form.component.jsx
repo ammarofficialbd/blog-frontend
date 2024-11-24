@@ -4,10 +4,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { EditorContext } from "../pages/editor.pages";
 import Tag from "./tags.component";
 import { UserContext } from "../App";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const PublishForm = () => {
+  const {blog_id} = useParams()
   let navigate = useNavigate();
   let charLimit = 200;
   let tagLimit = 10;
@@ -18,7 +19,7 @@ const PublishForm = () => {
     setBlog,
   } = useContext(EditorContext);
   const { userAuth: { token } } = useContext(UserContext)
-
+  
   const handleClodeEvent = () => {
     setEditorState("editor");
   };
@@ -60,6 +61,8 @@ const PublishForm = () => {
     }
   };
 
+  console.log(blog_id);
+
   const publishBlog = function (e) {
 
     e.preventDefault();
@@ -86,11 +89,11 @@ const PublishForm = () => {
       tags,
       draft: false
     }
-    axios.post(import.meta.env.VITE_API + '/create-blog', blogObj, {
+    axios.post(import.meta.env.VITE_API + '/create-blog', {...blogObj, id: blog_id}, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
-    }).then(({ data }) => {
+    }).then(() => {
       e.target.classList.remove('disabled')
       toast.dismiss(loadingToast)
       toast.success("published 👍")
@@ -98,6 +101,7 @@ const PublishForm = () => {
         navigate('/')
       }, 500)
     }).catch(({ response }) => {
+      console.log(response);
       e.target.classList.remove('disabled')
       toast.dismiss(loadingToast)
       return toast.error(response.data.message)

@@ -1,15 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-const BlogCard = ({ content, author }) => {
+const BlogCard = ({ content, author , i}) => {
     let { publishedAt, tags, title, banner, des, activity: { total_likes }, blog_id: id } = content;
-    console.log(des);
+  //  console.log(des ,tags, banner);
     const { fullname, profile_img, username } = author;
     let date = new Date(publishedAt);
 
     let formattedDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(date);
     return (
-        <Link to={`/blog/${id}`} className='flex gap-8 items-center border-b border-grey pb-5 mb-4'> 
+        <Link to={`/blog/${id}`} key={i} className='flex gap-8 items-center border-b border-grey pb-5 mb-4'> 
          <article className='w-full'>
             <div className="flex gap-2 items-center mb-7">
                 <img src={profile_img} className="w-6 h-6 rounded-full" />

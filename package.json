@@ -23,6 +23,7 @@
     "@editorjs/simple-image": "^1.6.0",
     "@flaticon/flaticon-uicons": "^2.2.0",
     "axios": "^1.4.0",
+    "dompurify": "^3.2.0",
     "firebase": "^10.13.1",
     "framer-motion": "^10.13.0",
     "lucide-react": "^0.454.0",

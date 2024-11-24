@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import logo from "../imgs/logo.png";
 import AnimationWrapper from "../common/page-animation";
 import defaultBanner from "./../imgs/blog-banner.png";
@@ -15,12 +15,13 @@ const BlogEditor = () => {
   let { blog, blog: { title, banner, content, tags, des }, setBlog, textEditor, setTextEditor, setEditorState} = useContext(EditorContext);
   let {userAuth: {token}} = useContext(UserContext)
   //console.log(blog);
+  let {blog_id} = useParams();
   useEffect(() => {
     if(!textEditor.isReady){
       setTextEditor(
         new EditorJS({
           holder: "textEditor",
-          data: content,
+          data: Array.isArray(content) ? content[0] : content,
           tools : tools,
           placeholder: "Let's write an awesome story"
       })) 
@@ -113,7 +114,9 @@ const BlogEditor = () => {
           tags, 
           draft: true
         };
-        axios.post(import.meta.env.VITE_API + "/create-blog", blogObj, {
+        axios.post(import.meta.env.VITE_API + "/create-blog", 
+        // object distructuring kora hoyse karon blogObj er moddhe title, banner, des, content, tags, draft: true ta ache
+        {...blogObj , id: blog_id}, {
           headers: {
             'authorization': `Bearer ${token}`
           }
